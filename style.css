@@ -15,10 +15,100 @@ body {
   align-items: flex-end;
   justify-content: center;
   min-height: 100vh;
-  background-color: var(--dark-color);
+  background-color: #000000;
   overflow: hidden;
   perspective: 1000px;
   padding: 50px 0px;
+}
+
+body.not-loaded {
+  background-color: #000000;
+}
+
+/* Hide audio element - we just want it to play */
+#backgroundAudio {
+  display: none;
+}
+
+/* Message Overlay Styles */
+.message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.5s ease-in-out;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.message-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.message-text {
+  text-align: center;
+  font-family: 'Kalam', cursive;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 2px;
+  padding: 20px;
+  color: #DC143C;
+}
+
+.message-text-1 {
+  font-size: clamp(36px, 9vw, 72px);
+  background: linear-gradient(135deg, #DC143C 0%, #FF1493 30%, #FF69B4 60%, #DC143C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px rgba(220, 20, 60, 0.6);
+  animation: textGlow 3s ease-in-out infinite;
+  font-style: italic;
+}
+
+.message-text-2 {
+  font-size: clamp(40px, 10vw, 80px);
+  background: linear-gradient(135deg, #DC143C 0%, #FF1493 30%, #FF69B4 60%, #DC143C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px rgba(220, 20, 60, 0.6);
+  animation: textGlow 3s ease-in-out infinite;
+  font-style: italic;
+}
+
+@keyframes textGlow {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.3);
+  }
+}
+
+/* Hide flowers initially */
+.flowers {
+  opacity: 0;
+  transition: opacity 2s ease-in;
+  pointer-events: none;
+}
+
+.flowers.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+body.not-loaded .flowers {
+  opacity: 0 !important;
 }
 
 .night {
@@ -155,7 +245,7 @@ body {
   transform: translate(-50%, -100%);
   width: 8vmin;
   height: 8vmin;
-  background-color: #6bf0ff;
+  background-color: #FF69B4;
   filter: blur(10vmin);
 }
 
@@ -166,8 +256,8 @@ body {
   width: 8vmin;
   height: 11vmin;
   border-radius: 51% 49% 47% 53%/44% 45% 55% 69%;
-  background-color: #a7ffee;
-  background-image: linear-gradient(to top, #54b8aa, #a7ffee);
+  background-color: #FFB6C1;
+  background-image: linear-gradient(to top, #DC143C, #FFB6C1);
   transform-origin: bottom center;
   opacity: 0.9;
   box-shadow: inset 0 0 2vmin rgba(255, 255, 255, 0.5);
@@ -191,7 +281,7 @@ body {
   transform-origin: bottom left;
   border-radius: 4vmin 10vmin 4vmin 4vmin;
   transform: translate(0%, 18%) rotateX(70deg) rotate(-43deg);
-  background-image: linear-gradient(to top, #39c6d6, #a7ffee);
+  background-image: linear-gradient(to top, #FF69B4, #FFB6C1);
   z-index: 1;
   opacity: 0.8;
 }
@@ -215,13 +305,13 @@ body {
   width: 60%;
   height: 60%;
   border-radius: inherit;
-  background-image: repeating-linear-gradient(300deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(67.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(112.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(112.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(22.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(22.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(157.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(67.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(67.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), linear-gradient(90deg, #ffeb12, #ffce00);
+  background-image: repeating-linear-gradient(300deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(67.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(112.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(112.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(22.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(22.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(135deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(157.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(67.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), repeating-linear-gradient(67.5deg, rgba(0, 0, 0, 0.03) 0px, rgba(0, 0, 0, 0.03) 1px, transparent 1px, transparent 12px), linear-gradient(90deg, #FF69B4, #DC143C);
 }
 
 .flower__line {
   height: 55vmin;
   width: 1.5vmin;
-  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent, rgba(255, 255, 255, 0.2)), linear-gradient(to top, transparent 10%, #14757a, #39c6d6);
+  background-image: linear-gradient(to left, rgba(0, 0, 0, 0.2), transparent, rgba(255, 255, 255, 0.2)), linear-gradient(to top, transparent 10%, #B22222, #DC143C);
   box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.5);
   animation: grow-flower-tree 4s backwards;
 }
@@ -236,7 +326,7 @@ body {
   height: var(--h);
   border-top-right-radius: var(--h);
   border-bottom-left-radius: var(--h);
-  background-image: linear-gradient(to top, rgba(20, 117, 122, 0.4), #39c6d6);
+  background-image: linear-gradient(to top, rgba(178, 34, 34, 0.4), #DC143C);
 }
 
 .flower__line__leaf--1 {
@@ -282,14 +372,14 @@ body {
   bottom: 0vmin;
   width: 1vmin;
   height: 1vmin;
-  background-color: #fffb00;
+  background-color: #FF1493;
   border-radius: 50%;
   filter: blur(0.2vmin);
   animation: light-ans 4s linear infinite backwards;
 }
 
 .flower__light:nth-child(odd) {
-  background-color: #23f0ff;
+  background-color: #FF69B4;
 }
 
 .flower__light--1 {
@@ -333,7 +423,7 @@ body {
 }
 
 .flower__grass {
-  --c: #159faa;
+  --c: #DC143C;
   --line-w: 1.5vmin;
   position: absolute;
   bottom: 12vmin;
@@ -520,7 +610,7 @@ body {
 .flower__g-long {
   --w: 2vmin;
   --h: 6vmin;
-  --c: #159faa;
+  --c: #DC143C;
   position: absolute;
   bottom: 10vmin;
   left: -3vmin;
@@ -574,9 +664,9 @@ body {
   width: 30vmin;
   height: 50vmin;
   border-top-left-radius: 100%;
-  border-left: 2vmin solid #079097;
+  border-left: 2vmin solid #B22222;
   background-image: linear-gradient(to bottom, transparent, var(--dark-color) 60%);
-  -webkit-mask-image: linear-gradient(to top, transparent 30%, #079097 60%);
+  -webkit-mask-image: linear-gradient(to top, transparent 30%, #B22222 60%);
 }
 
 .flower__g-right--1 {
@@ -644,7 +734,7 @@ body {
 .flower__g-front__line {
   width: 0.3vmin;
   height: 20vmin;
-  background-image: linear-gradient(to top, transparent, #079097, transparent 100%);
+  background-image: linear-gradient(to top, transparent, #B22222, transparent 100%);
   position: relative;
 }
 
@@ -745,10 +835,10 @@ body {
   width: 10vmin;
   height: 10vmin;
   border-radius: 100% 0% 0% 100%/100% 100% 0% 0%;
-  box-shadow: inset 0 2px 1vmin rgba(44, 238, 252, 0.2);
-  background-image: linear-gradient(to bottom left, transparent, var(--dark-color)), linear-gradient(to bottom right, #159faa 50%, transparent 50%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom right, #159faa 50%, transparent 50%, transparent);
-  mask-image: linear-gradient(to bottom right, #159faa 50%, transparent 50%, transparent);
+  box-shadow: inset 0 2px 1vmin rgba(220, 20, 60, 0.3);
+  background-image: linear-gradient(to bottom left, transparent, var(--dark-color)), linear-gradient(to bottom right, #DC143C 50%, transparent 50%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom right, #DC143C 50%, transparent 50%, transparent);
+  mask-image: linear-gradient(to bottom right, #DC143C 50%, transparent 50%, transparent);
 }
 
 .flower__g-fr {
@@ -776,8 +866,8 @@ body {
   width: 30vmin;
   height: 50vmin;
   border-top-left-radius: 100%;
-  border-left: 2vmin solid #079097;
-  -webkit-mask-image: linear-gradient(to top, transparent 25%, #079097 50%);
+  border-left: 2vmin solid #B22222;
+  -webkit-mask-image: linear-gradient(to top, transparent 25%, #B22222 50%);
   position: relative;
   z-index: 1;
 }
@@ -789,9 +879,9 @@ body {
   width: 10vmin;
   height: 10vmin;
   border-radius: 100% 0% 0% 100%/100% 100% 0% 0%;
-  box-shadow: inset 0 2px 1vmin rgba(44, 238, 252, 0.2);
-  background-image: linear-gradient(to bottom left, transparent, var(--dark-color) 98%), linear-gradient(to bottom right, #23f0ff 45%, transparent 50%, transparent);
-  -webkit-mask-image: linear-gradient(135deg, #159faa 40%, transparent 50%, transparent);
+  box-shadow: inset 0 2px 1vmin rgba(220, 20, 60, 0.3);
+  background-image: linear-gradient(to bottom left, transparent, var(--dark-color) 98%), linear-gradient(to bottom right, #FF69B4 45%, transparent 50%, transparent);
+  -webkit-mask-image: linear-gradient(135deg, #DC143C 40%, transparent 50%, transparent);
 }
 
 .flower__g-fr__leaf--1 {
@@ -897,7 +987,7 @@ body {
 }
 
 .long-g--1 .leaf {
-  -webkit-mask-image: linear-gradient(to top, transparent 40%, #079097 80%) !important;
+  -webkit-mask-image: linear-gradient(to top, transparent 40%, #B22222 80%) !important;
 }
 
 .long-g--1 .leaf--1 {
@@ -917,7 +1007,7 @@ body {
 
 .long-g--2 .leaf,
 .long-g--3 .leaf {
-  -webkit-mask-image: linear-gradient(to top, transparent 50%, #079097 80%) !important;
+  -webkit-mask-image: linear-gradient(to top, transparent 50%, #B22222 80%) !important;
 }
 
 .long-g--2 .leaf--1,
@@ -932,7 +1022,7 @@ body {
 }
 
 .long-g--3 .leaf {
-  -webkit-mask-image: linear-gradient(to top, transparent 40%, #079097 80%) !important;
+  -webkit-mask-image: linear-gradient(to top, transparent 40%, #B22222 80%) !important;
 }
 
 .long-g--4 {
@@ -943,7 +1033,7 @@ body {
 }
 
 .long-g--4 .leaf {
-  -webkit-mask-image: linear-gradient(to top, transparent 50%, #079097 80%) !important;
+  -webkit-mask-image: linear-gradient(to top, transparent 50%, #B22222 80%) !important;
 }
 
 .long-g--5 {
@@ -972,7 +1062,7 @@ body {
 .long-g .leaf {
   --w: 15vmin;
   --h: 40vmin;
-  --c: #1aaa15;
+  --c: #DC143C;
   position: absolute;
   bottom: 0;
   width: var(--w);
@@ -1189,4 +1279,61 @@ body {
 
 .not-loaded * {
   animation-play-state: paused !important;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 20px 0px;
+  }
+  
+  .message-text-1 {
+    font-size: clamp(32px, 9vw, 64px);
+    letter-spacing: 2px;
+    padding: 15px;
+  }
+  
+  .message-text-2 {
+    font-size: clamp(36px, 10vw, 72px);
+    letter-spacing: 2px;
+    padding: 15px;
+  }
+  
+  .flowers {
+    transform: scale(0.85);
+  }
+  
+  .flower {
+    bottom: 8vmin;
+  }
+  
+  .flower--1 .flower__line {
+    height: 60vmin;
+  }
+  
+  .flower--2 .flower__line {
+    height: 50vmin;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .message-text-1 {
+    font-size: clamp(28px, 10vw, 56px);
+    letter-spacing: 1.5px;
+    padding: 10px;
+  }
+  
+  .message-text-2 {
+    font-size: clamp(32px, 11vw, 64px);
+    letter-spacing: 1.5px;
+    padding: 10px;
+  }
+  
+  .flowers {
+    transform: scale(0.75);
+  }
+  
+  .message-overlay {
+    padding: 15px;
+  }
 }

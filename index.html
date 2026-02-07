@@ -3,16 +3,33 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flowers</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./style.css">
 
 </head>
 
-<body>
-
-  <body class="not-loaded">
+<body class="not-loaded">
+    <audio id="backgroundAudio" autoplay loop>
+      <source src="audio.mp4" type="audio/mp4">
+      <source src="audio.mp4" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+    <div class="message-overlay" id="message1">
+      <div class="message-text message-text-1">
+        Meri Jan 🌸<br>Meri Pyari Star ✨<br>Meri Naina 🍁
+      </div>
+    </div>
+    <div class="message-overlay" id="message2">
+      <div class="message-text message-text-2">
+        Happy Rose Day 🌹<br>My Love ❤️
+      </div>
+    </div>
     <div class="night"></div>
-    <div class="flowers">
+    <div class="flowers" id="flowers">
       <div class="flower flower--1">
         <div class="flower__leafs flower__leafs--1">
           <div class="flower__leaf flower__leaf--1"></div>
@@ -308,10 +325,7 @@
         </div>
       </div>
     </div>
+    <script src="./script.js"></script>
   </body>
-
-  <script src="./script.js"></script>
-
-</body>
 
 </html>
